@@ -1,0 +1,38 @@
+<div style="padding-top: 56px; z-index: 4; top: 0; right: 0; left: 0; position: fixed; height: 60px;">
+    <header style="position: fixed; top: 0; right: 0; left: 0; bottom: 0; height: 44px;">
+        <div style="display: flex; flex-direction: row; align-items: center; max-width: 100%; justify-content: space-between; height: 44px; padding: 8px 16px; background-color: #12131a; font-weight: 600; line-height: 1.43; color: white; z-index: 9998 !important;">
+            <a href="/?utm_src=desk&utm_source=desk">
+                <div class="title">
+                        <img src="https://raw.githubusercontent.com/Hydraulisc/hydraulisc.github.io/main/assets/img/Hydraulisc.png" style="height: 46px; vertical-align: text-bottom; color: inherit; border-radius: 10px;">
+                </div>
+            </a>
+            <div class="action-buttons">
+                <nav class="nav-3_Sybl">
+                    <div class="links-DGfZfm">
+                        <ul id="navbarthings">
+                            <% if (username) { %>
+                                <a href="/auth?refresh?true">
+                                    <svg width="32px" height="32px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="z-index: 10;">
+                                        <g stroke-width="0"/>
+                                        <g stroke-linecap="round" stroke-linejoin="round"/><g>
+                                            <path d="M19 10L19 20H9M5 20L5 10L12 3L15.5 6.5" stroke="#d7d9e0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </g>
+                                    </svg>
+                                </a>
+                            <% } else { %>
+                                <a href="/auth?refresh=tokenExpired">
+                                    <svg width="32px" height="32px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+                                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <g id="SVGRepo_iconCarrier"> <path d="M15 20H18C19.1046 20 20 19.1046 20 18M15 4H18C19.1046 4 20 4.89543 20 6V14M11 16L15 12H3M11 8L12 9" stroke="#d7d9e0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> </g>
+                                    </svg>
+                                </a>
+                            <% } %>
+                        </ul>
+                        <div id="credoauth2-scope"></div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+</div>

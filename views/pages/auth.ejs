@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auth | Hydraulisc Blogger</title>
+</head>
+<body style="background-color: black;">
+    <!--
+        THIS IS THE HYDRAULISC WEBSITE'S LOGIN PAGE!
+        Feel free to change it on your own instance. This login modal was used simply because it was a fast way to get the code published.
+
+        THE HYDRAULISC LOGIN PAGE AND LOGIN MODAL ARE LICENCED UNDER THE AGPL-3.0 LICENSE. A COPY OF THIS LICENSE CAN BE FOUND OVER AT https://github.com/Hydraulisc/hydraulisc-app/blob/main/LICENSE
+    -->
+    <div id="warningbanner" style="width: 100%; height: 100%; position: absolute;top: 4.2rem;z-index: 10;background: rgba(0,0,0,0.5);left: 0;display: none;">
+        <div style="display: flex;background: black;max-width: 380px;margin: auto;">
+            <div style="padding: 1rem;font-weight: 600;color: red;">
+                <p id="thisiserrortext">$error.message.</p>
+                <p>HTTP ERROR 400.</p>
+            </div>
+        </div>
+    </div>
+    <div style="height: 100%; display: flex; color: #fff; align-items: center; flex-direction: column; justify-content: center; background-size: cover; background-position: center;">
+        <div style="padding: 48px 26px 24px; display: flex; flex-direction: column; flex-grow: 1; justify-content: center; margin-top: 12px; max-width: 350px;">
+            <form id="login-form" style="align-items: center; background-color: #12131a; border: 1px solid #1c286b; border-radius: 4px; box-sizing: border-box; display: flex; flex-direction: column; flex-shrink: 0; margin: 0 0 10px; padding: 10px 0; position: relative;">
+                <div style="margin-top: 36px; overflow: visible; margin-bottom: 12px; align-content: stretch; border-bottom-left-radius: 0; flex-direction: column; box-sizing: border-box;display: flex; border-bottom-right-radius: 0; align-items: stretch; align-self: auto; justify-content: flex-start; position: relative; flex-grow: 0; border-top-left-radius: 0; border-top-right-radius: 0;">
+                    <div style="cursor: pointer; display: flex; justify-content: center;">
+                        <img src="https://raw.githubusercontent.com/Hydraulisc/hydraulisc.github.io/main/assets/img/Hydraulisc.png" style="width: 80%; height: auto; display: inline-block;">
+                    </div>
+                </div>
+                <div style="margin-bottom: 10px; max-width: 350px; width: 100%;">
+                    <div style="border: 0; flex-direction: column; margin: 0; padding: 0;">
+                        <div style="overflow: visible; margin-top: 24px; align-content: stretch; flex-direction: column; display: flex; flex-shrink: 0; align-items: stretch; align-self: auto; position: relative; flex-grow: 0;">
+                            <div style="margin: 0 40px 6px;">
+                                <input type="email" name="email" placeholder="Email" style="border: none; border-radius: 5px; background-color: rgba(48, 48, 48, 0.6); color: rgb(250, 250, 250); width: 100%; min-width: 100%; height: 32px; min-height: 21px; text-align: center;">
+                            </div>
+                            <div style="margin: 0 40px 6px;">
+                                <input type="password" name="password" placeholder="Password" autocomplete="off" style="border: none; border-radius: 5px; background-color: rgba(48, 48, 48, 0.6); color: rgb(250, 250, 250); width: 100%; min-width: 100%; height: 32px; min-height: 21px; text-align: center;">
+                            </div>
+                            <div style="margin-top: 8px; overflow: visible; margin-bottom: 8px; align-content: stretch; flex-direction: column; box-sizing: border-box; display: flex; margin-left: 40px; flex-shrink: 0; align-items: stretch; align-self: auto; justify-content: flex-start; position: relative; margin-right: 40px; flex-grow: 0;">
+                                <button type="submit" name="thelogginginbutton" style="background: #5667c7 !important; border: none; border-radius: 10px; color: rgb(250, 250, 250); text-transform: uppercase; cursor: pointer; padding: 12px 14px;">Sign In</button>
+                            </div>
+                            <div style="margin: 10px 40px 18px;">
+                                <div style="display: flex; flex-direction: row;">
+                                    <div style="top: .45em; height: 1px; flex-shrink: 1; position: relative; flex-grow: 1; background-color: #d7d9e0;"></div>
+                                </div>
+                            </div>
+                            <div style="overflow: visible; margin-top: 8px; margin-bottom: 8px; align-content: stretch; flex-direction: column; box-sizing: border-box; display: flex; margin-left: 40px; flex-shrink: 0; align-items: stretch; align-self: auto; justify-content: flex-start; position: relative; margin-right: 40px; flex-grow: 0; text-align: center;">
+                                <p style="color: lightgray;">Only approved accounts can access Blogger instances. Self-Hosted terms may differ.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+      <script>
+        const errortoplace = document.getElementById('thisiserrortext');
+        const warningbannerLog = document.getElementById('warningbanner');
+        const loginForm = document.getElementById('login-form');
+        const signupForm = document.getElementById('signup-form');
+        const resetForm = document.getElementById('reset-password');
+
+        loginForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            loginForm.thelogginginbutton.disabled = true;
+            loginForm.thelogginginbutton.style.cursor = 'default';
+            loginForm.thelogginginbutton.style.background = '#000';
+            const email = loginForm.email.value;
+            const password = loginForm.password.value;
+            fetch('/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            })
+                .then(response => {
+                if (response.ok) {
+                    // User is authenticated
+                    window.location.href = '/';
+                } else {
+                    // Authentication failed
+                    response.text().then(errorMessage => {
+                        errortoplace.innerText = errorMessage;
+                        warningbannerLog.style.display = "block";
+                        console.error(errorMessage);
+                    });
+                }
+                })
+                .catch(error => {
+                    errortoplace.innerText = error;
+                    warningbannerLog.style.display = "block";
+                    console.error(error);
+                });
+        });
+      </script>
+</body>
+</html>
