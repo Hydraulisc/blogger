@@ -8,6 +8,7 @@ const { apiKey, authDomain, projectId, storageBucket, messagingSenderId, appId, 
 // start express + extras
 const port = process.env.port || 8800;
 const app = express();
+app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');

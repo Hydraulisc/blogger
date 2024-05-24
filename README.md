@@ -1,8 +1,23 @@
 # Blogger
 
-Hydraulisc Blogging Platform. Powered by NodeJS, express and a lot of wizardry (we hope, because otherwise we have no clue how it works).
+Hydraulisc Blog Writing Suite. Powered by NodeJS, express and a lot of wizardry (we hope, because otherwise we have no clue how it works).
 
-# Designed for Self-Hosting
+# Designed for Self-Hosting <sup>([guide](https://github.com/Hydraulisc/blogger?tab=readme-ov-file#simple-self-hosting-guide))</sup>
+
+## Code Structure
+
+**BEWARE** that the code structure is **_chaotic_** by design.
+
+**ADDITIONALLY** we have _not_ seperated routes from the main server file. Once again, this is intentional. Undercomplicated, low-level documented code.
+
+Still, here's a simple code structure:
+- Root Folder
+- - server.js
+- - firebase_env.json
+- - views (contains the frontend code separated into pages and partials)
+- - public (contains site logo(s))
+
+And _yes_, it's entirely inline CSS.
 
 ## Simple Self-Hosting Guide
 Can probably be setup in under a minute.
