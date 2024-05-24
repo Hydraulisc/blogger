@@ -99,7 +99,7 @@ app.get('/', async (req, res) => {
       userID = undefined;
     }
     res.render('pages/blogger', {
-      username: "SleepingAmi",
+      username: firebase.auth().currentUser,
       uid: firebase.auth().currentUser
     });
 })
