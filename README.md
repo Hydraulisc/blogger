@@ -20,20 +20,20 @@ Still, here's a simple code structure:
 And _yes_, it's entirely inline CSS.
 
 ## Simple Self-Hosting Guide
-Can probably be setup in under a minute.
+Can probably be set up in under a minute.
 
 1. Clone the repo
 2. Link your Firebase Database in your own `firebase_env.json`. If you leave the file at root it'll likely work first try.
-3. Secure your databse with Firestore Rules. _Google that one..._
+3. Secure your database with [Firestore Rules](https://firebase.google.com/docs/rules).
 4. Open the folder in a terminal.
 5. `npm i` to install everything.
 6. Start the process with `npm run dev` if you want to customise it, or use `npm run live` if you just want the live version.
 
-# !! Public Hosting Warning !!
+# ⚠️ Public Hosting Warning ⚠️
 
-**Beware that this code _is NOT_ intended to be hosted as-is publicly!**
+This code is **NOT** intended to be hosted publicly without changes!
 
-To host this project in a public manner we suggest you look into making a solid Auth Header Token Regeneration (and Separation) System that can separate users (because this code does not) and manage `sessionExpiry` (which this code, once again, does not).
+To host this project safely in a public environment, we recommend implementing a solid Auth Header Token Regeneration and Separation System to properly separate users (this code does not) and manage session expiry (again, this code does not).
 
 ### TL;DR:
 
