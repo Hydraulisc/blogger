@@ -22,7 +22,7 @@
     </div>
     <div style="height: 100%; display: flex; color: #fff; align-items: center; flex-direction: column; justify-content: center; background-size: cover; background-position: center;">
         <div style="padding: 48px 26px 24px; display: flex; flex-direction: column; flex-grow: 1; justify-content: center; margin-top: 12px; max-width: 350px;">
-            <form id="login-form" style="align-items: center; background-color: #12131a; border: 1px solid #1c286b; border-radius: 4px; box-sizing: border-box; display: flex; flex-direction: column; flex-shrink: 0; margin: 0 0 10px; padding: 10px 0; position: relative;">
+            <form id="login-form" style="align-items: center; background-color: #12131a; border: 1px solid #1c286b; border-radius: 4px; box-sizing: border-box; display: flex; flex-direction: column; flex-shrink: 0; margin: 0 0 10px; padding: 10px 0; position: relative;" method="post" action="/auth/login">
                 <div style="margin-top: 36px; overflow: visible; margin-bottom: 12px; align-content: stretch; border-bottom-left-radius: 0; flex-direction: column; box-sizing: border-box;display: flex; border-bottom-right-radius: 0; align-items: stretch; align-self: auto; justify-content: flex-start; position: relative; flex-grow: 0; border-top-left-radius: 0; border-top-right-radius: 0;">
                     <div style="cursor: pointer; display: flex; justify-content: center;">
                         <img src="/img/hydra-bloggah-p.png" style="width: 80%; height: auto; display: inline-block;">
@@ -54,44 +54,5 @@
             </form>
         </div>
     </div>
-      <script>
-        const errortoplace = document.getElementById('thisiserrortext');
-        const warningbannerLog = document.getElementById('warningbanner');
-        const loginForm = document.getElementById('login-form');
-        const signupForm = document.getElementById('signup-form');
-        const resetForm = document.getElementById('reset-password');
-
-        loginForm.addEventListener('submit', (event) => {
-            event.preventDefault();
-            loginForm.thelogginginbutton.disabled = true;
-            loginForm.thelogginginbutton.style.cursor = 'default';
-            loginForm.thelogginginbutton.style.background = '#000';
-            const email = loginForm.email.value;
-            const password = loginForm.password.value;
-            fetch('/auth/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password })
-            })
-                .then(response => {
-                if (response.ok) {
-                    // User is authenticated
-                    window.location.href = '/';
-                } else {
-                    // Authentication failed
-                    response.text().then(errorMessage => {
-                        errortoplace.innerText = errorMessage;
-                        warningbannerLog.style.display = "block";
-                        console.error(errorMessage);
-                    });
-                }
-                })
-                .catch(error => {
-                    errortoplace.innerText = error;
-                    warningbannerLog.style.display = "block";
-                    console.error(error);
-                });
-        });
-      </script>
 </body>
 </html>

@@ -45,24 +45,13 @@ function cleanseHTML(text) {
 
 // login page
 app.get('/auth', function (req, res) {
-    const checkUser = firebase.auth().currentUser;
-    var userID = "";
-    if(checkUser) {
-      userID = checkUser.uid;
-    } else {
-      userID = undefined;
-    }
-    if(userID) {
-      res.redirect(`/`)
-    } else {
-      res.render('pages/auth', {
-        title: null,
-        source: "",
-        username: userID,
-        uid: req.uid,
-      });
-    }
-  });
+  const checkUser = firebase.auth().currentUser;
+  if(checkUser) {
+    res.redirect(`/`)
+  } else {
+    res.render('pages/auth');
+  }
+});
 
 
   /*  WARNING!
@@ -80,8 +69,7 @@ app.post('/auth/login', async (req, res) => {
   
     try {
       await firebase.auth().signInWithEmailAndPassword(email, password);
-      const userId = firebase.auth().currentUser.uid;
-      res.status(200).send('OK');
+      res.redirect('/');
     } catch (error) {
       const errorMessage = error.message;
       console.error(errorMessage);
@@ -90,18 +78,14 @@ app.post('/auth/login', async (req, res) => {
   });
 
 app.get('/', async (req, res) => {
-    var checkUser = "";
-    if(firebase.auth().currentUser != null) checkUser = firebase.auth().currentUser;
-    var userID = "";
-    if(checkUser) {
-      userID = checkUser.uid;
-    } else {
-      userID = undefined;
-    }
-    res.render('pages/blogger', {
-      username: firebase.auth().currentUser,
+    if(firebase.auth().currentUser != null) {
+      res.render('pages/blogger', {
+      username: firebase.auth().currentUser.email,
       uid: firebase.auth().currentUser
     });
+    } else {
+      res.redirect('/auth')
+    }
 })
 
 /* UPLOAD BLOG ENTRIES
@@ -136,7 +120,7 @@ app.post('/post/create', async (req, res) => {
     const updatedPost = { path: postId, update: timestamp };
 
     await docRef.update(updatedPost);
-    res.status(200).json({ uploadStatus: 'success' });
+    res.status(200).json('success').redirect('/');
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Error patching blog post: ' + error.message });

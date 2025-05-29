@@ -7,73 +7,35 @@
 </head>
 <body style="background-color: black; color: lightslategray;">
     <%- include('../partials/header', { username: username, uid: uid }) %>
-    <% if (username) { %>
-        <div style="padding-top: 6rem; width: 75%; margin-left: auto; margin-right: auto; background-color: #04050a;">
-            <div style="min-width: 100%; height: 699px; text-align: center;">
-                <h2>Blogger</h2>
-                <div style="padding-top: .3rem; width: 75%; margin-left: auto; margin-right: auto;">
-                    <form id="post-form" style="display: flex; flex-direction: column; gap: 15px;">
-                        <label for="title" style="font-weight: bold; color: #555;">Title:</label>
-                        <input type="text" id="title" name="title" style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 4px; color: #04050a; text-align: center;" required>
-            
-                        <label for="author" style="font-weight: bold; color: #555;">Author:</label>
-                        <input type="text" id="author" name="author" style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 4px; text-align: center;" disabled value="<%- username %>">
-            
-                        <label for="content" style="font-weight: bold; color: #555;">Content:</label>
-                        <textarea id="content" name="content" rows="10" style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 4px; color: #04050a;" required></textarea>
-                        <br>
-                        <button type="submit" name="theposttopostbutton" style="padding: 10px 20px; font-size: 16px; background-color: #007BFF; color: #fff; border: none; border-radius: 4px; cursor: pointer;">Submit Post</button>
-                    </form>
+    <div style="padding-top: 6rem; width: 75%; margin-left: auto; margin-right: auto; background-color: #04050a;">
+        <div style="min-width: 100%; height: 699px; text-align: center;">
+            <% if (username) { %>
+                    <h2>Blogger</h2>
+                    <div style="padding-top: .3rem; width: 75%; margin-left: auto; margin-right: auto;">
+                        <form id="post-form" style="display: flex; flex-direction: column; gap: 15px;" method="post" action="/post/create">
+                            <label for="title" style="font-weight: bold; color: #555;">Title:</label>
+                            <input type="text" id="title" name="title" style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 4px; color: #04050a; text-align: center;" required>
+                
+                            <label for="author" style="font-weight: bold; color: #555;">Author:</label>
+                            <input type="text" id="author" name="author" style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 4px; text-align: center;" disabled value="<%- username %>">
+                
+                            <label for="content" style="font-weight: bold; color: #555;">Content:</label>
+                            <textarea id="content" name="content" rows="10" style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 4px; color: #04050a;" required></textarea>
+                            <br>
+                            <button type="submit" name="theposttopostbutton" style="padding: 10px 20px; font-size: 16px; background-color: #007BFF; color: #fff; border: none; border-radius: 4px; cursor: pointer;">Submit Post</button>
+                        </form>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <script>
-            const postMakerForm = document.getElementById('post-form');
-            postMakerForm.addEventListener('submit', (event) => {
-                event.preventDefault();
-                postMakerForm.theposttopostbutton.disabled = true;
-                postMakerForm.theposttopostbutton.style.cursor = 'default';
-                postMakerForm.theposttopostbutton.style.background = '#00000a';
-                const title = postMakerForm.title.value;
-                const content = postMakerForm.content.value;
-                fetch('/post/create', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ title, content })
-            })
-                .then(response => {
-                if (response.ok) {
-                    // Post Uploaded??
-                    title.value = '';
-                    content.value = '';
-                    postMakerForm.theposttopostbutton.disabled = false;
-                    postMakerForm.theposttopostbutton.style.cursor = 'pointer';
-                    postMakerForm.theposttopostbutton.style.background = '#007BFF';
-                    console.log('post upload was ok');
-
-                } else {
-                    response.text().then(errorMessage => {
-                    window.alert("error: " + errorMessage);
-                    })
-                }})
-                .catch(error => {
-                    console.error(error);
-                    window.alert("An error occured. Check console for more info!");
-                });
-            })
-        </script>
-    <% } else { %>
-        <div style="margin-top: 6rem; width: 90%; margin-left: auto; margin-right: auto; background-color: #04050a;">
-            <div style="min-width: 100%; height: 690px; text-align: center;">
+            <% } else { %>
                 <div style="padding-top: 3rem; width: 100%; margin-left: auto; margin-right: auto;">
-                    <h2>You Must <a href="/auth" tabindex="-1" style="color: #5667c7;">Login</a> To Continue!</h2>
+                    <h2>If you're seeing this, you logged in correctly, but firebase.auth().currentUser.username is null.</h2>
                 </div>
-                <p>O.o <a href="https://github.com/Hydraulisc/Blogger" tabindex="-1" target="_blank" style="color: #5667c7;">What's this?</a></p>
+                <p>O.o <a href="https://github.com/Hydraulisc/Blogger?tab=readme-ov-file#blogger" tabindex="-1" target="_blank" style="color: #5667c7;">What's this?</a></p>
                 <p>Hydraulisc's Blogger is an invite-only Blog Post Writting Suite, where only approved accounts can login to create Blog Posts.</p>
                 <p>Self-Hostable, powered by NodeJS, and licenced under the <a href="https://github.com/Hydraulisc/Blogger/blog/main/LICENSE" tabindex="-1" target="_blank" style="color: #5667c7;">MIT LICENSE</a>.</p>
                 <p style="margin-top: 10rem;">{ <i>END EJS BOILERPLATE</i> }</p>
-            </div>
+            <% } %>
         </div>
-    <% } %>
+    </div>
 </body>
 </html>
