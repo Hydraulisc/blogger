@@ -1,0 +1,9 @@
+{
+    "apiKey": "firebaseAPIKey",
+    "authDomain": "auth-domain.firebaseapp.example",
+    "projectId": "firebase-project",
+    "storageBucket": "storage-bucket.firebasestorage.example",
+    "messagingSenderId": "00000000000",
+    "appId": "firebase_app_id",
+    "measurementId": "measurement_ID"
+}

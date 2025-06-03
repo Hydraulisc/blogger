@@ -1,6 +1,7 @@
 const express = require('express');
-const ejs = require('ejs');
-const firebase = require('firebase');
+const firebase = require('firebase/compat/app');
+require('firebase/compat/auth');
+require('firebase/compat/firestore');
 const bodyParser = require('body-parser');
 
 const { apiKey, authDomain, projectId, storageBucket, messagingSenderId, appId, measurementId } = require('./firebase_env.json')
@@ -120,7 +121,7 @@ app.post('/post/create', async (req, res) => {
     const updatedPost = { path: postId, update: timestamp };
 
     await docRef.update(updatedPost);
-    res.status(200).json('success').redirect('/');
+    res.status(200).redirect('/');
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Error patching blog post: ' + error.message });

@@ -1,6 +1,6 @@
 {
   "name": "blogger",
-  "version": "0.9.8",
+  "version": "0.9.81",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -24,7 +24,7 @@
     "body-parser": "^1.20.2",
     "ejs": "^3.1.10",
     "express": "^4.19.2",
-    "firebase": "^8.9.1",
+    "firebase": "^10.9.0",
     "nodemon": "^3.1.0"
   }
 }
